@@ -51,19 +51,52 @@
 
       console.log('[Web Modifier] Executing Listener ')
 
-      setTimeout(function() {
-        document.querySelector("paper-button[aria-label='Nein danke']").click()
+      var tries = 0;
+      var t = setInterval(function () {
 
-        if(document.getElementsByClassName("ytp-size-button")[0].title == 'Kinomodus (t)') {
-          document.getElementsByClassName("ytp-size-button")[0].click();
+        //document.querySelector("paper-button[aria-label='Nein danke']").click()
+/*
+            if(document.getElementsByTagName("paper-toggle-button")[0].hasAttribute('pressed') || document.getElementsByTagName("paper-toggle-button")[0].hasAttribute('checked')) {
+              document.getElementsByTagName("paper-toggle-button")[0].click();
+            }
+*/
+        console.log("Trying Kinomodus");
+        if(document.querySelector(".ytp-size-button[title='Kinomodus (t)']") != undefined) {
+            document.querySelector(".ytp-size-button[title='Kinomodus (t)']").click()
+        } else {
+          tries += 1;
         }
-        if(document.getElementsByTagName("paper-toggle-button")[0].hasAttribute('pressed') || document.getElementsByTagName("paper-toggle-button")[0].hasAttribute('checked')) {
-          document.getElementsByTagName("paper-toggle-button")[0].click();
-        }
-      }, 2000);
+        if(tries >= 50)  clearInterval(t);
+      }, 200);
     });
   }
   console.log(document.location.href)
+
+
+
+  if(
+      document.location.href.indexOf('https://www.google.com') === 0 ||
+      document.location.href.indexOf('https://www.google.de') === 0) {
+    console.log('[Web Modifier] Found Google. Injecting Listener');
+      window.addEventListener('load', (event) => {
+          console.log('[Web Modifier] Executing Listener ')
+          var tries = 0;
+          var t = setInterval(function () {
+              console.log("Polling")
+              if (document.getElementById("xe7COe") != undefined) {
+                clearInterval(t);
+                document.getElementById("xe7COe").remove();
+                document.getElementsByTagName("body")[0].style["overflow"]="initial";
+
+              }else {
+                  tries += 1;
+              }
+              if(tries >= 50)  clearInterval(t);
+
+            }, 100);
+
+    });
+  }
   if(
       document.location.href.indexOf('https://consent.google.com') === 0 ||
       document.location.href.indexOf('https://consent.google.de') === 0 ||
@@ -71,13 +104,18 @@
       document.location.href.indexOf('https://consent.youtube.de') === 0) {
     console.log('[Web Modifier] Found Consnet Google. Injecting Listener');
       window.addEventListener('load', (event) => {
-          console.log('[Web Modifier] Executing Listener ')
+          console.log('[Web Modifier] Executing Listener ');
+          var tries = 0;
           var t = setInterval(function () {
               console.log("Polling")
-              if (document.getElementById("introAgreeButton") != undefined) {
+              if (document.querySelector("button") != undefined) {
                 clearInterval(t);
-                document.getElementById("introAgreeButton").click();
+                document.querySelector("button").click();
+              } else {
+                  tries += 1;
               }
+              if(tries >= 50)  clearInterval(t);
+
             }, 100);
 
     });

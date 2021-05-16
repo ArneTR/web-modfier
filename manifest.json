@@ -11,6 +11,8 @@
       "matches": [
         "https://*.facebook.com/*",
         "https://*.youtube.com/*",
+        "https://www.google.com/*",
+        "https://www.google.de/*",
         "https://consent.google.com/*",
         "https://consent.youtube.com/*",
         "https://consent.youtube.de/*",
